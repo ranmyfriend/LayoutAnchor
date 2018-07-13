@@ -87,7 +87,7 @@ class ViewController1: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+
         setupViews()
     }
 
@@ -95,12 +95,13 @@ class ViewController1: UIViewController {
 
         view.addSubview(containerView)
 
+        let margins = view.layoutMarginsGuide
+
         NSLayoutConstraint.activate(
             [
-            containerView.topAnchor.constraint(equalTo: view.topAnchor,
-                                                constant: 20),
-            containerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8),
-            containerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8),
+            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            containerView.leftAnchor.constraint(equalTo: margins.leftAnchor),
+            containerView.rightAnchor.constraint(equalTo: margins.rightAnchor),
              containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25)
             ])
 
