@@ -14,8 +14,9 @@ class SegmentedView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("OVERVIEW", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 11, weight: .black)
-        btn.setTitleColor(.white, for: .normal)
-        btn.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .disabled)
+        btn.setTitleColor(.white, for: .selected)
+        btn.setTitleColor(.lightGray, for: .normal)
+        btn.isSelected = true
         return btn
     }()
 
@@ -24,8 +25,9 @@ class SegmentedView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("RECENTLY PLAYED ARTISTS", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 11, weight: .black)
-        btn.setTitleColor(.white, for: .normal)
-        btn.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .disabled)
+        btn.setTitleColor(.white, for: .selected)
+        btn.setTitleColor(.lightGray, for: .normal)
+        btn.isSelected = false
         return btn
     }()
 
@@ -34,8 +36,9 @@ class SegmentedView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("PUBLIC PLAYLISTS", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 11, weight: .black)
-        btn.setTitleColor(.white, for: .normal)
-        btn.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .disabled)
+        btn.setTitleColor(.white, for: .selected)
+        btn.setTitleColor(.lightGray, for: .normal)
+        btn.isSelected = false
         return btn
     }()
 
@@ -44,8 +47,9 @@ class SegmentedView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("FOLLOWING(5)", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 11, weight: .black)
-        btn.setTitleColor(.white, for: .normal)
-        btn.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .disabled)
+        btn.setTitleColor(.white, for: .selected)
+        btn.setTitleColor(.lightGray, for: .normal)
+        btn.isSelected = false
         return btn
     }()
 
@@ -54,9 +58,36 @@ class SegmentedView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("MORE", for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 11, weight: .black)
-        btn.setTitleColor(.white, for: .normal)
-        btn.setTitleColor(UIColor.black.withAlphaComponent(0.5), for: .disabled)
+        btn.setTitleColor(.white, for: .selected)
+        btn.setTitleColor(.lightGray, for: .normal)
+        btn.isSelected = false
         return btn
+    }()
+
+    let indicatorView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(hex: 0x1db954)
+        return view
+    }()
+
+    lazy var stackView: UIStackView = {
+        overviewBtn.addTarget(self, action: #selector(moveIndicator(sender:)), for: .touchUpInside)
+        moreBtn.addTarget(self, action: #selector(moveIndicator(sender:)), for: .touchUpInside)
+
+        let stackView = UIStackView(arrangedSubviews:
+            [
+                overviewBtn,
+                recentlyPlayedArtistsBtn,
+                publicPlaylistsBtn,
+                followingBtn,
+                moreBtn
+            ])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 8
+        stackView.axis = .horizontal
+        return stackView
     }()
 
     override init(frame: CGRect) {
@@ -69,52 +100,32 @@ class SegmentedView: UIView {
     }
 
     private func setupViews() {
-        addSubview(overviewBtn)
-        addSubview(recentlyPlayedArtistsBtn)
-        addSubview(publicPlaylistsBtn)
-        addSubview(followingBtn)
-        addSubview(moreBtn)
 
+        addSubview(stackView)
         NSLayoutConstraint.activate(
             [
-                overviewBtn.topAnchor.constraint(equalTo: topAnchor),
-                overviewBtn.leftAnchor.constraint(equalTo: leftAnchor),
-                overviewBtn.rightAnchor.constraint(equalTo: recentlyPlayedArtistsBtn.leftAnchor),
-                overviewBtn.bottomAnchor.constraint(equalTo: bottomAnchor)
+                stackView.topAnchor.constraint(equalTo: topAnchor),
+                stackView.leftAnchor.constraint(equalTo: leftAnchor),
+                stackView.rightAnchor.constraint(equalTo: rightAnchor),
+                stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
 
+        addSubview(indicatorView)
         NSLayoutConstraint.activate(
             [
-                recentlyPlayedArtistsBtn.topAnchor.constraint(equalTo: topAnchor),
-                recentlyPlayedArtistsBtn.leftAnchor.constraint(equalTo: overviewBtn.rightAnchor),
-                recentlyPlayedArtistsBtn.rightAnchor.constraint(equalTo: publicPlaylistsBtn.leftAnchor),
-                recentlyPlayedArtistsBtn.bottomAnchor.constraint(equalTo: bottomAnchor)
+                indicatorView.topAnchor.constraint(equalTo: overviewBtn.bottomAnchor),
+                indicatorView.centerXAnchor.constraint(equalTo: overviewBtn.centerXAnchor),
+                indicatorView.heightAnchor.constraint(equalToConstant: 2),
+                indicatorView.widthAnchor.constraint(equalToConstant: 20)
             ])
+    }
 
+    @objc private func moveIndicator(sender: UIButton) {
+        sender.isSelected = true
         NSLayoutConstraint.activate(
             [
-                publicPlaylistsBtn.topAnchor.constraint(equalTo: topAnchor),
-                publicPlaylistsBtn.leftAnchor.constraint(equalTo: recentlyPlayedArtistsBtn.rightAnchor),
-                publicPlaylistsBtn.rightAnchor.constraint(equalTo: followingBtn.leftAnchor),
-                publicPlaylistsBtn.bottomAnchor.constraint(equalTo: bottomAnchor)
+                indicatorView.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
             ])
-
-        NSLayoutConstraint.activate(
-            [
-                followingBtn.topAnchor.constraint(equalTo: topAnchor),
-                followingBtn.leftAnchor.constraint(equalTo: publicPlaylistsBtn.rightAnchor),
-                followingBtn.rightAnchor.constraint(equalTo: moreBtn.leftAnchor),
-                followingBtn.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ])
-
-        NSLayoutConstraint.activate(
-            [
-                moreBtn.topAnchor.constraint(equalTo: topAnchor),
-                moreBtn.leftAnchor.constraint(equalTo: followingBtn.rightAnchor),
-                moreBtn.rightAnchor.constraint(equalTo: rightAnchor),
-                moreBtn.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ])
-
     }
 
 }

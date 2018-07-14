@@ -13,7 +13,6 @@ class HeaderView: UIView {
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.backgroundColor = .red
         iv.image = #imageLiteral(resourceName: "icProfileImage")
         return iv
     }()
@@ -57,7 +56,7 @@ class HeaderView: UIView {
     let segmentedView: SegmentedView = {
         let view = SegmentedView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .yellow
+        view.backgroundColor = .clear
         return view
     }()
 
