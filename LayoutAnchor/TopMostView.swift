@@ -125,7 +125,7 @@ class TopMostView: UIView {
         NSLayoutConstraint.activate(
             [
                 nameLbl.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8),
-                nameLbl.rightAnchor.constraint(equalTo: downArrowBtn.leftAnchor),
+                downArrowBtn.leftAnchor.constraint(equalTo: nameLbl.rightAnchor, constant: 8),
                 nameLbl.widthAnchor.constraint(greaterThanOrEqualToConstant: 30),
                 nameLbl.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
