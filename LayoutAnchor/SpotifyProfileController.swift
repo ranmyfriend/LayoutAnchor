@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpotifyProfileController: UIViewController {
+final class SpotifyProfileController: UIViewController {
 
     let headerView: HeaderView = {
         let view = HeaderView()

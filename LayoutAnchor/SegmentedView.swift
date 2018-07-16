@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SegmentedView: UIView {
+final class SegmentedView: UIView {
     let overviewBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false

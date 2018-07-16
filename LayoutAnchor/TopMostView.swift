@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopMostView: UIView {
+final class TopMostView: UIView {
     let leftArrowBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -81,25 +81,25 @@ class TopMostView: UIView {
     private func setupViews() {
 
         addSubview(leftArrowBtn)
+        NSLayoutConstraint.activate(
+            [
+                leftArrowBtn.leftAnchor.constraint(equalTo: leftAnchor),
+                leftArrowBtn.centerYAnchor.constraint(equalTo: centerYAnchor),
+                leftArrowBtn.widthAnchor.constraint(equalToConstant: 30),
+                leftArrowBtn.heightAnchor.constraint(equalToConstant: 30)
+            ])
+        
         addSubview(rightArrowBtn)
         addSubview(searchTxtField)
-
         NSLayoutConstraint.activate(
             [
-                leftArrowBtn.topAnchor.constraint(equalTo: topAnchor),
-                leftArrowBtn.bottomAnchor.constraint(equalTo: bottomAnchor),
-                leftArrowBtn.leftAnchor.constraint(equalTo: leftAnchor),
-                leftArrowBtn.widthAnchor.constraint(equalToConstant: 30)
-            ])
-
-        NSLayoutConstraint.activate(
-            [
-                rightArrowBtn.topAnchor.constraint(equalTo: topAnchor),
-                rightArrowBtn.bottomAnchor.constraint(equalTo: bottomAnchor),
                 rightArrowBtn.leftAnchor.constraint(equalTo: leftArrowBtn.rightAnchor),
                 rightArrowBtn.rightAnchor.constraint(equalTo: searchTxtField.leftAnchor),
+                rightArrowBtn.centerYAnchor.constraint(equalTo: centerYAnchor),
+                rightArrowBtn.widthAnchor.constraint(equalToConstant: 30),
                 rightArrowBtn.widthAnchor.constraint(equalToConstant: 30)
             ])
+        
         NSLayoutConstraint.activate(
             [
                 searchTxtField.leftAnchor.constraint(equalTo: rightArrowBtn.rightAnchor),
@@ -111,8 +111,41 @@ class TopMostView: UIView {
         searchTxtField.layer.cornerRadius = 25
         searchTxtField.layoutIfNeeded()
 
-        addSubview(downArrowBtn)
+        addSubview(upgradeBtn)
+        NSLayoutConstraint.activate(
+            [
+                upgradeBtn.leftAnchor.constraint(greaterThanOrEqualTo: searchTxtField.rightAnchor, constant: 8),
+                upgradeBtn.centerYAnchor.constraint(equalTo: centerYAnchor),
+                upgradeBtn.widthAnchor.constraint(equalToConstant: 80),
+                upgradeBtn.heightAnchor.constraint(equalToConstant: 20),
+            ])
+        
+        upgradeBtn.layer.cornerRadius = 10
+        upgradeBtn.clipsToBounds = true
+        upgradeBtn.layoutIfNeeded()
+        
+        addSubview(imageView)
+        NSLayoutConstraint.activate(
+            [
+                imageView.leftAnchor.constraint(equalTo: upgradeBtn.rightAnchor, constant: 8),
+                imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+                imageView.widthAnchor.constraint(equalToConstant: 30),
+                imageView.heightAnchor.constraint(equalToConstant: 30),
+            ])
+        
+        imageView.layer.cornerRadius = 30/2
+        imageView.clipsToBounds = true
+        imageView.layoutIfNeeded()
+
         addSubview(nameLbl)
+        NSLayoutConstraint.activate(
+            [
+                nameLbl.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8),
+                nameLbl.widthAnchor.constraint(greaterThanOrEqualToConstant: 30),
+                nameLbl.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ])
+        
+        addSubview(downArrowBtn)
         NSLayoutConstraint.activate(
             [
                 downArrowBtn.leftAnchor.constraint(equalTo: nameLbl.rightAnchor, constant: 8),
@@ -120,40 +153,6 @@ class TopMostView: UIView {
                 downArrowBtn.widthAnchor.constraint(equalToConstant: 30),
                 downArrowBtn.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
-        addSubview(imageView)
-
-        NSLayoutConstraint.activate(
-            [
-                nameLbl.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8),
-                downArrowBtn.leftAnchor.constraint(equalTo: nameLbl.rightAnchor, constant: 8),
-                nameLbl.widthAnchor.constraint(greaterThanOrEqualToConstant: 30),
-                nameLbl.centerYAnchor.constraint(equalTo: centerYAnchor)
-            ])
-
-        NSLayoutConstraint.activate(
-            [
-                imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-                imageView.widthAnchor.constraint(equalToConstant: 30),
-                imageView.heightAnchor.constraint(equalToConstant: 30)
-            ])
-
-        imageView.layer.cornerRadius = 30/2
-        imageView.clipsToBounds = true
-        imageView.layoutIfNeeded()
-
-        addSubview(upgradeBtn)
-
-        NSLayoutConstraint.activate(
-            [
-                upgradeBtn.centerYAnchor.constraint(equalTo: centerYAnchor),
-                upgradeBtn.widthAnchor.constraint(equalToConstant: 80),
-                upgradeBtn.heightAnchor.constraint(equalToConstant: 20),
-                upgradeBtn.rightAnchor.constraint(equalTo: imageView.leftAnchor, constant: -8)
-            ])
-
-        upgradeBtn.layer.cornerRadius = 10
-        upgradeBtn.clipsToBounds = true
-        upgradeBtn.layoutIfNeeded()
     }
     
 }
