@@ -9,6 +9,7 @@
 import UIKit
 
 final class SegmentedView: UIView {
+    //MARK: - IBOutlets & IBActions
     let overviewBtn: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -90,6 +91,7 @@ final class SegmentedView: UIView {
         return stackView
     }()
 
+    //MARK: - Overriden functions
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -99,8 +101,8 @@ final class SegmentedView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK: - Private functions
     private func setupViews() {
-
         addSubview(stackView)
         NSLayoutConstraint.activate(
             [
@@ -120,6 +122,7 @@ final class SegmentedView: UIView {
             ])
     }
 
+    //MARK: - Selectors
     @objc private func moveIndicator(sender: UIButton) {
         sender.isSelected = true
         NSLayoutConstraint.activate(

@@ -8,8 +8,9 @@
 
 import UIKit
 
-class HeaderView: UIView {
+final class HeaderView: UIView {
 
+    //MARK: - IBOulets & IBActions
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -61,6 +62,7 @@ class HeaderView: UIView {
     }()
 
 
+    //MARK: - Overriden functions
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -70,40 +72,23 @@ class HeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    //MARK: - Private functions
     private func setupViews() {
+        [segmentedView,
+         imageView,
+        imageChageBtn,
+        userCaptionLbl
+        ,userNameLbl,
+        optionsBtn].forEach(addSubview(_:))
 
-        addSubview(imageView)
         NSLayoutConstraint.activate(
             [
-                imageView.topAnchor.constraint(equalTo: topAnchor),
-                imageView.leftAnchor.constraint(equalTo: leftAnchor),
-                imageView.widthAnchor.constraint(equalToConstant: 100),
-                imageView.heightAnchor.constraint(equalToConstant: 100)
-            ])
-
-        imageView.layer.cornerRadius = 100/2
-        imageView.clipsToBounds = true
-        imageView.layoutIfNeeded()
-
-        addSubview(imageChageBtn)
-        NSLayoutConstraint.activate(
-            [
-                imageChageBtn.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
-                imageChageBtn.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-                imageChageBtn.rightAnchor.constraint(equalTo: imageView.rightAnchor),
-                imageChageBtn.heightAnchor.constraint(equalToConstant: 30)
-            ])
-
-        addSubview(userCaptionLbl)
-        NSLayoutConstraint.activate(
-            [
-                userCaptionLbl.topAnchor.constraint(equalTo: imageView.topAnchor),
-                userCaptionLbl.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 10),
+                userCaptionLbl.topAnchor.constraint(equalTo: topAnchor),
+                userCaptionLbl.leftAnchor.constraint(equalTo: imageView.rightAnchor, constant: 8*2),
                 userCaptionLbl.heightAnchor.constraint(equalToConstant: 30),
-                userCaptionLbl.rightAnchor.constraint(equalTo: rightAnchor)
+                userCaptionLbl.rightAnchor.constraint(greaterThanOrEqualTo: rightAnchor, constant: 8)
             ])
 
-        addSubview(userNameLbl)
         NSLayoutConstraint.activate(
             [
                 userNameLbl.topAnchor.constraint(equalTo: userCaptionLbl.bottomAnchor),
@@ -112,7 +97,6 @@ class HeaderView: UIView {
                 userNameLbl.heightAnchor.constraint(equalToConstant: 30)
             ])
 
-        addSubview(optionsBtn)
         NSLayoutConstraint.activate(
             [
                 optionsBtn.topAnchor.constraint(equalTo: imageChageBtn.topAnchor),
@@ -121,14 +105,34 @@ class HeaderView: UIView {
                 optionsBtn.heightAnchor.constraint(equalToConstant: 40)
             ])
 
-        addSubview(segmentedView)
         NSLayoutConstraint.activate(
             [
-                segmentedView.topAnchor.constraint(equalTo: optionsBtn.bottomAnchor),
+                imageView.leftAnchor.constraint(equalTo: leftAnchor),
+                imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+                imageView.widthAnchor.constraint(equalToConstant: 100),
+                imageView.heightAnchor.constraint(equalToConstant: 100)
+            ])
+
+        imageView.layer.cornerRadius = 100/2
+        imageView.clipsToBounds = true
+        imageView.layoutIfNeeded()
+
+        NSLayoutConstraint.activate(
+            [
+                imageChageBtn.leftAnchor.constraint(equalTo: imageView.leftAnchor),
+                imageChageBtn.rightAnchor.constraint(equalTo: imageView.rightAnchor),
+                imageChageBtn.heightAnchor.constraint(equalToConstant: 30),
+                imageChageBtn.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+            ])
+
+        NSLayoutConstraint.activate(
+            [
                 segmentedView.leftAnchor.constraint(equalTo: imageView.leftAnchor),
+                segmentedView.topAnchor.constraint(equalTo: optionsBtn.bottomAnchor),
                 segmentedView.rightAnchor.constraint(equalTo: rightAnchor),
                 segmentedView.heightAnchor.constraint(equalToConstant: 50)
             ])
+
     }
 
 }

@@ -9,21 +9,17 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder {
     let window: UIWindow = {
         let w = UIWindow(frame: UIScreen.main.bounds)
         w.makeKeyAndVisible()
         return w
     }()
+}
 
-
+extension AppDelegate: UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window.rootViewController = SpotifyProfileController()
         return true
     }
-
-
-
 }
-

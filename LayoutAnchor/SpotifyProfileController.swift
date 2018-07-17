@@ -10,6 +10,7 @@ import UIKit
 
 final class SpotifyProfileController: UIViewController {
 
+    //MARK: - IBOutlets & IBActions
     let headerView: HeaderView = {
         let view = HeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -24,18 +25,19 @@ final class SpotifyProfileController: UIViewController {
         return view
     }()
 
+    //MARK: - Overriden functions
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hex: 0x191414)
         setupViews()
     }
 
+    //MARK: - Private functions
     private func setupViews() {
 
         let layoutMarginGuide = view.layoutMarginsGuide
 
         view.addSubview(topView)
-
         NSLayoutConstraint.activate(
             [
                 topView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -46,10 +48,9 @@ final class SpotifyProfileController: UIViewController {
 
 
         view.addSubview(headerView)
-
         NSLayoutConstraint.activate(
             [
-                headerView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 0),
+                headerView.topAnchor.constraint(equalTo: topView.bottomAnchor),
                 headerView.leftAnchor.constraint(equalTo: topView.leftAnchor),
                 headerView.rightAnchor.constraint(equalTo: topView.rightAnchor),
                 headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25)
